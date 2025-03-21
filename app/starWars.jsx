@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, Button } from "react-native";
+import { View, FlatList, StyleSheet, Button } from "react-native";
+import { Personagem } from "@/components/Personagem";
 
 const urlStarWars = "https://swapi.dev/api/people/?page=1";
-
-const Item = ({ personagem }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{personagem.name}</Text>
-  </View>
-);
 
 export default function starWars() {
   const [personagens, setPersonagens] = useState([]);
@@ -51,7 +46,7 @@ export default function starWars() {
       </View>
       <FlatList
         data={personagens}
-        renderItem={({ item }) => <Item personagem={item} />}
+        renderItem={({ item }) => <Personagem personagem={item} />}
         keyExtractor={(item) => item.url}
       />
     </View>
@@ -62,18 +57,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderWidth: 3,
-    borderColor: "black",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 32,
   },
   buttonsContainer: {
     flexDirection: "row",
