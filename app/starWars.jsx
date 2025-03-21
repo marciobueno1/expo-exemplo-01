@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet, Button } from "react-native";
+import axios from "axios";
 import { Personagem } from "@/components/Personagem";
 
 const urlStarWars = "https://swapi.dev/api/people/?page=1";
@@ -11,12 +12,12 @@ export default function starWars() {
 
   async function carregarURL(url) {
     try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        setPersonagens(data.results);
-        setPrevious(data.previous);
-        setNext(data.next);
+      const response = await axios.get(url);
+      console.log("response", response.data);
+      if (response.status / 100 == 2) {
+        setPersonagens(response.data.results);
+        setPrevious(response.data.previous);
+        setNext(response.data.next);
       } else {
         console.log("status", response.status);
         console.log("statusText", response.statusText);
