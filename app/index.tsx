@@ -4,13 +4,14 @@ import {
   Button,
   Dimensions,
   FlatList,
-  Image,
   StyleSheet,
   Switch,
   Text,
   TextInput,
   View,
 } from "react-native";
+import { Image } from "expo-image";
+import { Link } from "expo-router";
 
 const windowDimensions = Dimensions.get("window");
 const screenDimensions = Dimensions.get("screen");
@@ -71,7 +72,7 @@ export default function Index() {
     <View style={[styles.container, styles.scrollViewContainer]}>
       <Image
         style={[styles.logo, { width: logoSize, height: logoSize }]}
-        source={require("@/assets/images/react-logo.png")}
+        source={require("@/assets/images/DanceBot-3-Med.gif")}
       />
       {isEnabled && (
         <View style={styles.inputContainer}>
@@ -109,6 +110,7 @@ export default function Index() {
         onValueChange={toggleSwitch}
         value={isEnabled}
       />
+      <Link href="/starWars">Star Wars</Link>
       <FlatList
         style={styles.list}
         data={DATA}
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     marginBottom: 20,
-    tintColor: "white",
+    // tintColor: "white",
   },
   item: {
     backgroundColor: "#f9c2ff",
