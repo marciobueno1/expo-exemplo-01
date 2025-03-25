@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { View, FlatList, StyleSheet, Button } from "react-native";
-import axios from "axios";
 import { Personagem } from "@/components/Personagem";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Button, FlatList, StyleSheet, View } from "react-native";
 
 const urlStarWars = "https://swapi.dev/api/people/?page=1";
 

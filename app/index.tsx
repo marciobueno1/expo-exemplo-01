@@ -1,53 +1,23 @@
+import { Image } from "expo-image";
+import { Link, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   Alert,
   Button,
   Dimensions,
-  FlatList,
+  Platform,
   StyleSheet,
   Switch,
   Text,
   TextInput,
   View,
 } from "react-native";
-import { Image } from "expo-image";
-import { Link } from "expo-router";
 
 const windowDimensions = Dimensions.get("window");
 const screenDimensions = Dimensions.get("screen");
 
-const DATA = [
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
-  },
-  {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28bb",
-    title: "Fourth Item",
-  },
-  {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f64",
-    title: "Fifth Item",
-  },
-  {
-    id: "58694a0f-3da1-471f-bd96-145571e29d73",
-    title: "Sixth Item",
-  },
-];
-
-const Item = ({ title }) => (
-  <View style={styles.item}>
-    <Text style={styles.title}>{title}</Text>
-  </View>
-);
+const isAndroid = Platform.OS === "android";
+// const isIOS = Platform.OS === "ios";
 
 export default function Index() {
   const [text, onChangeText] = useState("Useless Text");
@@ -56,6 +26,8 @@ export default function Index() {
     screen: screenDimensions,
   });
   const [isEnabled, setIsEnabled] = useState(false);
+  const router = useRouter();
+
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   useEffect(() => {
     const subscription = Dimensions.addEventListener(
@@ -111,11 +83,11 @@ export default function Index() {
         value={isEnabled}
       />
       <Link href="/starWars">Star Wars</Link>
-      <FlatList
-        style={styles.list}
-        data={DATA}
-        renderItem={({ item }) => <Item title={item.title} />}
-        keyExtractor={(item) => item.id}
+      <Link href="/exLista">Flat List</Link>
+      <Button
+        title="Flat List"
+        color={isAndroid ? "black" : "green"}
+        onPress={() => router.navigate("/exLista")}
       />
     </View>
   );
@@ -148,21 +120,5 @@ const styles = StyleSheet.create({
   logo: {
     marginBottom: 20,
     // tintColor: "white",
-  },
-  item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderWidth: 3,
-    borderColor: "black",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 32,
-  },
-  list: {
-    backgroundColor: "yellow",
-    width: "100%",
   },
 });
