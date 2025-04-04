@@ -42,6 +42,9 @@ export default function Index() {
   let logoSize = dimensions.window.width / 2;
   return (
     <View style={[styles.container, styles.scrollViewContainer]}>
+      <Text className="text-white" style={{ fontSize: 40 }}>
+        Titulo
+      </Text>
       <Image
         style={[styles.logo, { width: logoSize, height: logoSize }]}
         source={require("@/assets/images/DanceBot-3-Med.gif")}
