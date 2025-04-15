@@ -1,7 +1,7 @@
 import { Personagem } from "@/components/Personagem";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, FlatList, StyleSheet, View } from "react-native";
+import { getPersonagens } from "@/api/starWarsApi";
 
 const urlStarWars = "https://swapi.dev/api/people/?page=1";
 
@@ -11,20 +11,10 @@ export default function starWars() {
   const [next, setNext] = useState(null);
 
   async function carregarURL(url) {
-    try {
-      const response = await axios.get(url);
-      console.log("response", response.data);
-      if (response.status / 100 == 2) {
-        setPersonagens(response.data.results);
-        setPrevious(response.data.previous);
-        setNext(response.data.next);
-      } else {
-        console.log("status", response.status);
-        console.log("statusText", response.statusText);
-      }
-    } catch (err) {
-      console.log("err", err);
-    }
+    const data = await getPersonagens(url);
+    setPersonagens(data.results);
+    setPrevious(data.previous);
+    setNext(data.next);
   }
 
   useEffect(() => {
