@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function starWarsDetails() {
   const { id } = useLocalSearchParams();
+  const router = useRouter();
   const [personagem, setPersonagem] = useState({});
 
   async function carregarURL(url) {
@@ -13,7 +14,7 @@ export default function starWarsDetails() {
       console.log("response", response.data);
       if (response.status / 100 == 2) {
         setPersonagem(response.data);
-        console.log("data", response.data);
+        router.console.log("data", response.data);
       } else {
         console.log("status", response.status);
         console.log("statusText", response.statusText);
@@ -29,6 +30,11 @@ export default function starWarsDetails() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: personagem.name ? personagem.name : `ID = ${id}`,
+        }}
+      />
       <Text style={styles.title}>Star Wars Details: {id}</Text>
       <Text style={styles.title}>Name: {personagem.name}</Text>
       <Text style={styles.title}>Height: {personagem.height}</Text>
