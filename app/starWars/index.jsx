@@ -1,11 +1,19 @@
 import { Personagem } from "@/components/Personagem";
 import { useEffect, useState } from "react";
 import { Button, FlatList, StyleSheet, View } from "react-native";
+import { useQuery } from "@tanstack/react-query";
 import { getPersonagens } from "@/api/starWarsApi";
 
 const urlStarWars = "https://swapi.dev/api/people/?page=1";
 
 export default function starWars() {
+  const [url, setURL] = useState(urlStarWars);
+  const query = useQuery({
+    queryKey: [url],
+    queryFn: () => getPersonagens(url),
+  });
+  console.log("query", query);
+
   const [personagens, setPersonagens] = useState([]);
   const [previous, setPrevious] = useState(null);
   const [next, setNext] = useState(null);
@@ -17,9 +25,9 @@ export default function starWars() {
     setNext(data.next);
   }
 
-  useEffect(() => {
-    carregarURL(urlStarWars);
-  }, []);
+  // useEffect(() => {
+  //   carregarURL(urlStarWars);
+  // }, []);
 
   return (
     <View style={styles.container}>

@@ -86,7 +86,7 @@ export default function Index() {
         value={isEnabled}
       />
       <Link href="/starWars">Star Wars</Link>
-      <Link href="/exLista">Flat List</Link>
+      <Link href="/tarefas">Tarefas</Link>
       <Button
         title="Flat List"
         color={isAndroid ? "black" : "green"}
