@@ -1,11 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import { getTarefas } from "@/api/tarefasApi";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  Button,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
+import { getTarefas, createTarefa } from "@/api/tarefasApi";
+import { Tarefa } from "@/components/Tarefa";
+import { useState } from "react";
 
 export default function Tarefas() {
+  const [descricao, setDescricao] = useState("");
   const { isPending, error, data, isFetching } = useQuery({
     queryKey: ["tarefas"],
     queryFn: getTarefas,
+  });
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: createTarefa,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ["tarefas"] });
+      setDescricao("");
+    },
   });
 
   if (isPending) {
@@ -26,13 +45,21 @@ export default function Tarefas() {
 
   return (
     <View style={styles.container}>
-      {isFetching && <Text style={styles.emptyText}>isFetching...</Text>}
+      <View style={styles.addContainer}>
+        <TextInput
+          placeholder="Digite a descrição da tarefa"
+          value={descricao}
+          onChangeText={setDescricao}
+        />
+        <Button title="ADD" onPress={() => mutation.mutate({ descricao })} />
+      </View>
       <FlatList
         style={styles.list}
         data={data.results}
-        renderItem={({ item }) => <Text>{item.descricao}</Text>}
+        renderItem={({ item }) => <Tarefa item={item} disabled={isFetching} />}
         keyExtractor={(item) => item.objectId}
       />
+      {isFetching && <Text style={styles.emptyText}>isFetching...</Text>}
     </View>
   );
 }
@@ -57,5 +84,9 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: "bisque",
     width: "100%",
+  },
+  addContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
