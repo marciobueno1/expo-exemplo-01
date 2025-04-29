@@ -12,6 +12,7 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { useStore } from "@/zustand";
 
 const windowDimensions = Dimensions.get("window");
 const screenDimensions = Dimensions.get("screen");
@@ -25,10 +26,10 @@ export default function Index() {
     window: windowDimensions,
     screen: screenDimensions,
   });
-  const [isEnabled, setIsEnabled] = useState(false);
   const router = useRouter();
+  const showTextInput = useStore((state) => state.showTextInput);
+  const toggleShowTextInput = useStore((state) => state.toggleShowTextInput);
 
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   useEffect(() => {
     const subscription = Dimensions.addEventListener(
       "change",
@@ -49,7 +50,7 @@ export default function Index() {
         style={[styles.logo, { width: logoSize, height: logoSize }]}
         source={require("@/assets/images/DanceBot-3-Med.gif")}
       />
-      {isEnabled && (
+      {showTextInput && (
         <View style={styles.inputContainer}>
           <Text style={styles.inputLabel}>Valor digitado no input: {text}</Text>
           <TextInput
@@ -80,10 +81,10 @@ export default function Index() {
       />
       <Switch
         trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        thumbColor={showTextInput ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
+        onValueChange={toggleShowTextInput}
+        value={showTextInput}
       />
       <Link href="/starWars">Star Wars</Link>
       <Link href="/tarefas">Tarefas</Link>
