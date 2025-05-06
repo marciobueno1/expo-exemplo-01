@@ -1,23 +1,22 @@
 {
   "expo": {
-    "name": "Expo Exemplo 01",
+    "name": "expo-exemplo-01",
     "slug": "expo-exemplo-01",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "expoexemplo03",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.marciobueno1.expoexemplo01"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.marciobueno1.expoexemplo01"
+      "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",
@@ -38,18 +37,6 @@
     ],
     "experiments": {
       "typedRoutes": true
-    },
-    "extra": {
-      "eas": {
-        "projectId": "f9d3686a-6fe6-4f5d-82c9-49f86e066322"
-      }
-    },
-    "owner": "marciobueno1",
-    "updates": {
-      "url": "https://u.expo.dev/f9d3686a-6fe6-4f5d-82c9-49f86e066322"
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
     }
   }
 }

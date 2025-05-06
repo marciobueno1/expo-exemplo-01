@@ -9,6 +9,7 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <Stack>
+        <Stack.Screen name="index" options={{ title: "Home" }} />
         <Stack.Screen name="starWars/index" />
         <Stack.Screen name="starWars/[id]" />
         <Stack.Screen name="exLista" />
