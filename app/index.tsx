@@ -86,6 +86,7 @@ export default function Index() {
         onValueChange={toggleShowTextInput}
         value={showTextInput}
       />
+      <Link href="/appState">App State</Link>
       <Link href="/starWars">Star Wars</Link>
       <Link href="/tarefas">Tarefas</Link>
       <Button

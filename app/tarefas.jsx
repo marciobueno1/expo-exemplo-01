@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+  ActivityIndicator,
   Button,
   FlatList,
   StyleSheet,
@@ -31,6 +32,7 @@ export default function Tarefas() {
     return (
       <View style={styles.emptyContainer}>
         <Text style={styles.emptyText}>No Data</Text>
+        <ActivityIndicator />
       </View>
     );
   }
@@ -53,13 +55,13 @@ export default function Tarefas() {
         />
         <Button title="ADD" onPress={() => mutation.mutate({ descricao })} />
       </View>
+      {isFetching && <ActivityIndicator size="large" color="#00ff00" />}
       <FlatList
         style={styles.list}
         data={data.results}
         renderItem={({ item }) => <Tarefa item={item} disabled={isFetching} />}
         keyExtractor={(item) => item.objectId}
       />
-      {isFetching && <Text style={styles.emptyText}>isFetching...</Text>}
     </View>
   );
 }

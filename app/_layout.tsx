@@ -14,6 +14,7 @@ export default function RootLayout() {
         <Stack.Screen name="starWars/[id]" />
         <Stack.Screen name="exLista" />
         <Stack.Screen name="tarefas" />
+        <Stack.Screen name="appState" options={{ title: "App State" }} />
       </Stack>
     </QueryClientProvider>
   );
